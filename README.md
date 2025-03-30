@@ -4,8 +4,7 @@ A cricket fantasy sports platform where users can create their dream team and co
 
 ## Features
 
-- User Authentication (Email & Facebook Login)
-- Real-time Match Updates
+- User Authentication 
 - Player Selection System
 - Scoreboard Tracking
 - Team Management
@@ -16,7 +15,7 @@ A cricket fantasy sports platform where users can create their dream team and co
 - **Frontend**: HTML, CSS, JavaScript, Bootstrap
 - **Backend**: Node.js
 - **Database**: SQLite
-- **Authentication**: Custom Authentication, Facebook OAuth
+- **Authentication**: Custom Authentication
 
 ## Project Structure
 
