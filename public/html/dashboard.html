@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="css/dashboard.css">
+
+<!-- Add Bootstrap CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100 h-20" height="250" src="images/crousel copy.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100 h-20" height="250" src="images/second.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100 h-20" height="250" src="images/third.jpg" alt="Third slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100 h-20" height="250" src="images/fourth.jpg" alt="Fourth slide">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="d-flex justify-content-center my-2">
+    <div class="row m-0">
+      <div class="col p-0">
+        <img  class="ipl-img" src="images/moto.jpg" alt="">
+      </div>
+    </div>
+  </div>
+<div class="container startbtn-box">
+    <div class="row my-5">
+        <div class="col d-flex justify-content-center gap-3">
+            <button class="btn btn-primary" id="start-match">Select Match</button>
+            <button class="btn btn-success" id="join-contest">Join Contest</button>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Join Contest</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-container">
+                    <div class="contest-details">
+                        <h4 class="text-center mb-4">Contest Details</h4>
+                        <div class="contest-info">
+                            <p><strong>Entry Fee:</strong> <span class="entry-fee">₹49</span></p>
+                            <p><strong>Total Prize Pool:</strong> <span class="prize-pool">₹1000</span></p>
+                            <p><strong>Spots Left:</strong> <span class="spots-left">45/50</span></p>
+                        </div>
+                    </div>
+                    <div class="payment-amount">
+                        ₹49
+                    </div>
+                    <div class="payment-details">
+                        <p><i class="fas fa-shield-alt me-2"></i> Secure Payment</p>
+                        <p><i class="fas fa-undo me-2"></i> Instant Refund</p>
+                        <p><i class="fas fa-headset me-2"></i> 24/7 Support</p>
+                    </div>
+                    <button class="payment-button" onclick="initializePayment(49, 'contest123')">
+                        <i class="fas fa-lock me-2"></i>Pay Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5">
+    <div class="container">
+        <h1 class="faq-title text-center mb-5">FREQUENTLY ASKED QUESTIONS</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="accordion" id="faqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item mb-3">
+                        <button class="faq-btn" onclick="toggleFaq(this, 1)">
+                            <span>1. What is Fantasy Cricket?</span>
+                            <span class="plus-icon"></span>
+                        </button>
+                        <div id="faq-body-1" class="faq-body">
+                            Fantasy cricket is an online game where you create a virtual team of real cricket players and score points based on how these players perform in real-life matches. You can compete with other players, join contests, and win exciting prizes based on your team's performance.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item mb-3">
+                        <button class="faq-btn" onclick="toggleFaq(this, 2)">
+                            <span>2. How to Play Fantasy Cricket Online and Win on Fantasy 11 platform?</span>
+                            <span class="plus-icon"></span>
+                        </button>
+                        <div id="faq-body-2" class="faq-body">
+                            To play and win on Fantasy 11: 1) Sign up and verify your account, 2) Select an upcoming match, 3) Create your team of 11 players within the given credits, 4) Join contests with entry fees that suit your budget, 5) Track your team's performance and win cash prizes based on your team's points.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item mb-3">
+                        <button class="faq-btn" onclick="toggleFaq(this, 3)">
+                            <span>3. What is Indian Premier League?</span>
+                            <span class="plus-icon"></span>
+                        </button>
+                        <div id="faq-body-3" class="faq-body">
+                            The Indian Premier League is India's premier professional Twenty20 cricket league. It features teams representing different cities competing in fast-paced matches. The league attracts top international players and offers exciting opportunities for fantasy cricket players to create teams and win prizes.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item mb-3">
+                        <button class="faq-btn" onclick="toggleFaq(this, 4)">
+                            <span>4. Why is Fantasy 11 awesome? Is it legal, safe and secure?</span>
+                            <span class="plus-icon"></span>
+                        </button>
+                        <div id="faq-body-4" class="faq-body">
+                            Fantasy 11 is awesome because it offers a secure, legal platform for fantasy cricket. It's fully compliant with Indian laws, uses secure payment gateways, and protects user data. We offer transparent contests, instant withdrawals, and 24/7 customer support to ensure a safe and enjoyable gaming experience.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="faq-image-container">
+                    <img src="images/kuldeep.jpg"  alt="Fantasy Cricket Expert" class="faq-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Toggle Script -->
+<script>
+    function toggleFaq(button, id) {
+        // Toggle active class on button
+        button.classList.toggle('active');
+        
+        // Toggle active class on body
+        const body = document.getElementById('faq-body-' + id);
+        body.classList.toggle('active');
+    }
+</script>
+
+<script src="../app/dashboard.js"></script>
+<script>
+    // Initialize carousel
+    var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleControls'), {
+        interval: 3000,
+        pause: 'hover',
+        wrap: true
+    });
+</script>

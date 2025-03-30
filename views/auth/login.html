@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Dream 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .sports-animation {
+            background-image: url('https://source.unsplash.com/1600x900/?cricket,sports');
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <!-- Left Side - Sports Graphics -->
+        <div class="auth-graphics">
+            <div class="sports-animation"></div>
+            <h1>Welcome to Dream 11</h1>
+            <p>Join millions of players and start your fantasy sports journey today!</p>
+        </div>
+
+        <!-- Right Side - Glass Form -->
+        <div class="auth-form-container">
+            <div class="glass-form fade-in">
+                <!-- Bonus Offer Banner -->
+                <div class="bonus-offer">
+                    <i class="fas fa-gift"></i> Get ₹100 Bonus on First Login!
+                </div>
+
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your game</p>
+
+                <!-- Login Form -->
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter Mobile Number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn-auth interactive-btn" id="submitBtn">
+                            Get OTP
+                        </button>
+                    </div>
+                </form>
+
+
+                <div class="auth-footer">
+                    <p>New to Dream 11? <a href="/register">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <script>
+        
+
+        // Form Submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('phone').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const otpSection = document.getElementById('otpSection');
+
+            if (otpSection.style.display === 'none') {
+                // Send OTP
+                try {
+                    submitBtn.textContent = 'Sending OTP...';
+                    // Simulate OTP send
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    otpSection.style.display = 'block';
+                    submitBtn.textContent = 'Verify OTP';
+                } catch (error) {
+                    showError('Failed to send OTP. Please try again.');
+                }
+            } else {
+                // Verify OTP
+                try {
+                    const otp = Array.from(otpInputs).map(input => input.value).join('');
+                    submitBtn.textContent = 'Verifying...';
+                    // Simulate OTP verification
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    window.location.href = '/home';
+                } catch (error) {
+                    showError('Invalid OTP. Please try again.');
+                }
+            }
+        });
+
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+
+        // Error Message Display
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message fade-in';
+            errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            document.querySelector('.glass-form').insertBefore(errorDiv, document.querySelector('.auth-footer'));
+            setTimeout(() => errorDiv.remove(), 3000);
+        }
+
+        // Resend OTP
+        document.getElementById('resendOtp').addEventListener('click', (e) => {
+            e.preventDefault();
+            showSuccess('OTP sent successfully!');
+        });
+
+        // Success Message Display
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message fade-in';
+            successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.querySelector('.glass-form').insertBefore(successDiv, document.querySelector('.auth-footer'));
+            setTimeout(() => successDiv.remove(), 3000);
+        }
+    </script>
+</body>
+</html> 

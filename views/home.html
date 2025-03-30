@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Fantasy 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="home-container">
+        <section class="hero-section fade-in">
+            <h1>Welcome to Fantasy 11</h1>
+            <p>Create your fantasy cricket team and compete with players worldwide</p>
+        </section>
+
+        <section class="features-grid fade-in">
+            <div class="feature-card">
+                <h3>Create Your Team</h3>
+                <p>Select your favorite players and build your dream team with a perfect combination of batsmen, bowlers, and all-rounders.</p>
+                <button class="btn-auth interactive-btn" onclick="window.location.href='/create-team'">Start Building</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>Join Contests</h3>
+                <p>Participate in various contests and compete with other players to win exciting prizes.</p>
+                <button class="btn-auth interactive-btn" onclick="window.location.href='/contests'">View Contests</button>
+            </div>
+
+            <div class="feature-card">
+                <h3>Track Performance</h3>
+                <p>Monitor your team's performance in real-time and analyze player statistics.</p>
+                <button class="btn-auth interactive-btn" onclick="window.location.href='/stats'">View Stats</button>
+            </div>
+        </section>
+
+        <section class="visualization-container fade-in">
+            <h2>Your Performance</h2>
+            <div class="chart-controls">
+                <button class="chart-type-btn active" data-chart="points">Points History</button>
+                <button class="chart-type-btn" data-chart="rank">Rank History</button>
+                <button class="chart-type-btn" data-chart="wins">Contest Wins</button>
+            </div>
+
+            <div class="data-filters">
+                <select class="filter-select" id="timeRange">
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="year">Last Year</option>
+                </select>
+                <select class="filter-select" id="contestType">
+                    <option value="all">All Contests</option>
+                    <option value="free">Free Contests</option>
+                    <option value="paid">Paid Contests</option>
+                </select>
+            </div>
+
+            <div class="chart-container" id="performanceChart"></div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize performance chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        let currentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Points',
+                    data: [],
+                    borderColor: '#3498db',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Handle chart type switching
+        document.querySelectorAll('.chart-type-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('.chart-type-btn.active').classList.remove('active');
+                button.classList.add('active');
+                updateChart(button.dataset.chart);
+            });
+        });
+
+        // Handle filter changes
+        document.getElementById('timeRange').addEventListener('change', updateChart);
+        document.getElementById('contestType').addEventListener('change', updateChart);
+
+        async function updateChart(chartType = 'points') {
+            const timeRange = document.getElementById('timeRange').value;
+            const contestType = document.getElementById('contestType').value;
+
+            try {
+                const response = await fetch(`/api/stats?type=${chartType}&timeRange=${timeRange}&contestType=${contestType}`);
+                const data = await response.json();
+
+                currentChart.data.labels = data.labels;
+                currentChart.data.datasets[0].label = chartType.charAt(0).toUpperCase() + chartType.slice(1);
+                currentChart.data.datasets[0].data = data.values;
+                currentChart.update();
+            } catch (error) {
+                console.error('Error fetching chart data:', error);
+            }
+        }
+
+        // Initial chart update
+        updateChart();
+    </script>
+</body>
+</html> 
