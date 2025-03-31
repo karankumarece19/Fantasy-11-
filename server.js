@@ -21,13 +21,11 @@ app.use('/user',require('./routes/user/user').uroute)
 app.use('/f',require('./routes/user/user_facebook').froute)
 app.use('/m',require('./routes/match/match').mroute)
 app.use('/s',require('./routes/scoreboard/scoreboard').sroute)
-
+app.use('/payment',require('./routes/payment/payment').route)
 
 app.get('/',(req,res)=>{
     res.send('connected')
 })
-
-
 
 db.sync()
     .then(()=>{

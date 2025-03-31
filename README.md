@@ -4,8 +4,7 @@ A cricket fantasy sports platform where users can create their dream team and co
 
 ## Features
 
-- User Authentication (Email & Facebook Login)
-- Real-time Match Updates
+- User Authentication 
 - Player Selection System
 - Scoreboard Tracking
 - Team Management
@@ -46,12 +45,12 @@ Fantasy-11/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/karankumarece19/Fantasy-11-.git
+git clone https://github.com/karankumarece19/Fantasy11.git
 ```
 
 2. Navigate to the project directory
 ```bash
-cd Fantasy-11-
+cd Fantasy11
 ```
 
 3. Install dependencies

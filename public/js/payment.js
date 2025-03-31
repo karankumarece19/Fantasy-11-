@@ -40,55 +40,98 @@ function handlePaymentSuccess(response, contestId) {
         },
         success: function(response) {
             if(response.success) {
-                showSuccessMessage('Payment successful! You have been added to the contest.');
-                // Redirect to contest page or update UI
+                // Close the payment modal if it's open
+                const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                if (paymentModal) {
+                    paymentModal.hide();
+                }
+                
+                // Show success message with animation
+                showSuccessMessage('🎉 Congratulations! You have successfully joined the contest! 🎉');
+                
+                // Redirect to contest page after a delay
                 setTimeout(() => {
                     window.location.href = '/contest/' + contestId;
-                }, 2000);
+                }, 3000);
             } else {
-                showErrorMessage('Payment verification failed. Please contact support.');
+                showErrorMessage(response.message || 'Payment verification failed. Please contact support.');
             }
         },
-        error: function() {
+        error: function(xhr, status, error) {
+            console.error('Payment verification error:', error);
             showErrorMessage('Something went wrong. Please try again.');
         }
     });
 }
 
 function showSuccessMessage(message) {
-    // Create and show success toast
+    // Remove any existing toasts
+    $('.toast-container').remove();
+    
+    // Create new toast with enhanced styling
     const toast = `
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header bg-success text-white">
-                    <strong class="me-auto">Success</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    ${message}
+        <div class="toast-container position-fixed top-50 start-50 translate-middle">
+            <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas fa-check-circle me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
         </div>
     `;
+    
+    // Add toast to body
     $('body').append(toast);
-    $('.toast').toast('show');
+    
+    // Show toast with animation
+    const toastElement = $('.toast');
+    toastElement.toast({
+        animation: true,
+        autohide: false,
+        delay: 3000
+    }).toast('show');
+    
+    // Remove toast after it's hidden
+    toastElement.on('hidden.bs.toast', function () {
+        $('.toast-container').remove();
+    });
 }
 
 function showErrorMessage(message) {
-    // Create and show error toast
+    // Remove any existing toasts
+    $('.toast-container').remove();
+    
+    // Create new toast with enhanced styling
     const toast = `
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header bg-danger text-white">
-                    <strong class="me-auto">Error</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    ${message}
+        <div class="toast-container position-fixed top-50 start-50 translate-middle">
+            <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
         </div>
     `;
+    
+    // Add toast to body
     $('body').append(toast);
-    $('.toast').toast('show');
+    
+    // Show toast with animation
+    const toastElement = $('.toast');
+    toastElement.toast({
+        animation: true,
+        autohide: false,
+        delay: 3000
+    }).toast('show');
+    
+    // Remove toast after it's hidden
+    toastElement.on('hidden.bs.toast', function () {
+        $('.toast-container').remove();
+    });
 } 
