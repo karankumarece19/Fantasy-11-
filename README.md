@@ -1,4 +1,4 @@
-# Fantasy-11
+# Fantasy11
 
 A cricket fantasy sports platform where users can create their dream team and compete with others.
 
@@ -15,7 +15,7 @@ A cricket fantasy sports platform where users can create their dream team and co
 - **Frontend**: HTML, CSS, JavaScript, Bootstrap
 - **Backend**: Node.js
 - **Database**: SQLite
-- **Authentication**: Custom Authentication, Facebook OAuth
+- **Authentication**: Custom Authentication
 
 ## Project Structure
 
